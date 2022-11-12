@@ -17,6 +17,7 @@ class TimelineController extends Controller
     {
         return view('dashboard', [
             'posts' => Post::with('user')
+                ->withCount('comments')
                 ->latest('id')
                 ->get(),
         ]);

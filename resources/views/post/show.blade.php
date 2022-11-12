@@ -30,8 +30,17 @@
             @foreach ($post->comments as $comment)
                 <div class="card w-full bg-base-100 shadow-xl my-3">
                     <div class="card-body">
-                        <h2 class="card-title">{{ $comment->user->name }} - <span
-                                class="text-gray-400">{{ $comment->created_at->diffForHumans() }}</span></h2>
+                        <h2 class="card-title">{{ $comment->user->name }} -
+                            <span class="text-gray-400">{{ $comment->created_at->diffForHumans() }}</span>
+                            @if ($comment->user_id == auth()->id() || $post->user_id == auth()->id())
+                                <form method="post"
+                                    action="{{ route('post.comment.destroy', [$comment->post, $comment]) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="submit" value="Delete" class="btn btn-error btn-xs">
+                                </form>
+                            @endif
+                        </h2>
                         <p>{{ $comment->body }}</p>
                     </div>
                 </div>

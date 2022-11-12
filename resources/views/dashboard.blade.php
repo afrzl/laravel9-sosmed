@@ -41,7 +41,9 @@
                         <p>{{ $post->body }}</p>
                     </div>
                     <div class="card-actions justify-end">
-                        <a class="link mx-3 my-3" href="{{ route('post.show', $post) }}">Comment (10)</a>
+                        <a class="link mx-3 my-3" href="{{ route('post.show', $post) }}">Comment
+                            ({{ $post->comments_count }})
+                        </a>
                     </div>
                 </div>
             @endforeach
