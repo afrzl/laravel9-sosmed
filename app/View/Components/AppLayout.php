@@ -13,6 +13,7 @@ class AppLayout extends Component
      */
     public function render()
     {
-        return view('layouts.app');
+        $notifications = auth()->user()->unreadNotifications;
+        return view('layouts.app', ['notifications' => $notifications]);
     }
 }

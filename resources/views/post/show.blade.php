@@ -32,14 +32,14 @@
                     <div class="card-body">
                         <h2 class="card-title">{{ $comment->user->name }} -
                             <span class="text-gray-400">{{ $comment->created_at->diffForHumans() }}</span>
-                            @if ($comment->user_id == auth()->id() || $post->user_id == auth()->id())
+                            @can('delete', $comment)
                                 <form method="post"
                                     action="{{ route('post.comment.destroy', [$comment->post, $comment]) }}">
                                     @csrf
                                     @method('DELETE')
                                     <input type="submit" value="Delete" class="btn btn-error btn-xs">
                                 </form>
-                            @endif
+                            @endcan
                         </h2>
                         <p>{{ $comment->body }}</p>
                     </div>
