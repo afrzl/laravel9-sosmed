@@ -19,7 +19,7 @@ return new class extends Migration {
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->cascadeOndelete();
-            $table->string('body', 140);
+            $table->string('text');
             $table->timestamps();
         });
     }

@@ -18,7 +18,7 @@ class StoreCommentController extends Controller
     public function __invoke(Request $request, Post $post)
     {
         $data = $request->validate([
-            'body' => ['required', 'min:8'],
+            'body' => ['required', 'max:255'],
         ]);
 
         $data['user_id'] = $request->user()->id;

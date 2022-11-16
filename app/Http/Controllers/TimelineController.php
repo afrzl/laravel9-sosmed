@@ -15,11 +15,13 @@ class TimelineController extends Controller
      */
     public function __invoke(Request $request)
     {
+        $posts = Post::with('user')
+            ->withCount('comments')
+            ->latest('id')
+            ->simplePaginate(15);
+        // dd($posts);
         return view('dashboard', [
-            'posts' => Post::with('user')
-                ->withCount('comments')
-                ->latest('id')
-                ->get(),
+            'posts' => $posts,
         ]);
     }
 }

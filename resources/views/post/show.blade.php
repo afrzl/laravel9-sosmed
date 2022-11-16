@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-6 sm:px-6 lg:px-8 lg:mx-auto">
             <div class="card w-full bg-base-100 shadow-xl my-3">
                 <div class="card-body">
                     <h2 class="card-title">{{ $post->user->name }} - <span
@@ -27,8 +27,8 @@
             @endif
 
             <h1 class="text-2xl my-3">Comment</h1>
-            @foreach ($post->comments as $comment)
-                <div class="card w-full bg-base-100 shadow-xl my-3">
+            @foreach ($comments as $comment)
+                <div id="{{ $comment->id }}" class="card w-full bg-base-100 shadow-xl my-3">
                     <div class="card-body">
                         <h2 class="card-title">{{ $comment->user->name }} -
                             <span class="text-gray-400">{{ $comment->created_at->diffForHumans() }}</span>
@@ -48,15 +48,38 @@
 
             <div class="card w-full bg-base-100 shadow-xl my-3">
                 <div class="card-body">
-                    <form action="{{ route('post.comment.store', $post) }}" method="post">
-                        @csrf
-                        <textarea class="textarea textarea-bordered w-full rounded @error('body') textarea-error @enderror" name="body"
-                            rows="3" placeholder="Leave a comment...">{{ old('body') }}</textarea>
-                        <input type="submit" value="Post" class="btn mt-2">
-                        @error('body')
-                            <span class="text-error">{{ $message }}</span>
-                        @enderror
-                    </form>
+                    @auth
+                        <form action="{{ route('post.comment.store', $post) }}" method="post">
+                            @csrf
+                            <div class="input-group">
+                                <input type="text" name="body" placeholder="Leave a comment..."
+                                    class="input input-bordered w-full @error('body') input-error @enderror"
+                                    value="{{ old('body') }}" />
+                                <input type="submit" value="Post" class="btn">
+                                @error('body')
+                                    <span class="text-error">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </form>
+                    @else
+                        <div class="alert shadow-lg">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    class="stroke-info flex-shrink-0 w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <div>
+                                    <h3 class="font-bold">Login or register to comment something..</h3>
+                                </div>
+                            </div>
+                            <div class="flex-none">
+                                <a href="{{ route('login') }}"><button class="btn btn-sm">Login</button></a>
+                                <a href="{{ route('register') }}"><button
+                                        class="btn btn-sm btn-ghost">Register</button></a>
+                            </div>
+                        </div>
+                    @endauth
                 </div>
             </div>
         </div>

@@ -13,13 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/dashboard', \App\Http\Controllers\TimelineController::class)
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::get('/', \App\Http\Controllers\TimelineController::class)->name('dashboard');
+
+// Route::get('/dashboard', \App\Http\Controllers\TimelineController::class)
+//     ->middleware(['auth', 'verified'])
+//     ->name('dashboard');
 
 Route::post('post', \App\Http\Controllers\Post\StorePostController::class)->name('post.store');
 Route::get('post/{post}', \App\Http\Controllers\Post\ShowPostController::class)->name('post.show');

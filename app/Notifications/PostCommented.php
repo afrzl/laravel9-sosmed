@@ -59,6 +59,7 @@ class PostCommented extends Notification
         return [
             'post_id' => $this->comment->post->id,
             'user_id' => $this->comment->post->user_id,
+            'user_name' => auth()->user()->name,
             'post_body' => $this->comment->post->body,
             'comment' => $this->comment,
         ];
