@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 
 return new class extends Migration {
     /**
@@ -20,7 +21,7 @@ return new class extends Migration {
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
             $table
-                ->foreignId('post_id')
+                ->foreignUuid('post_id')
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();

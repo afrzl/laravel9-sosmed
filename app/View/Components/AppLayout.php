@@ -21,16 +21,13 @@ class AppLayout extends Component
 
             return view('layouts.app', [
                 'notifications' => $notifications,
-                'logged_in' => true,
                 // 'users_notif' => Post::with('user')
                 //     ->withCount('comments')
                 //     ->latest('id')
                 //     ->get(),
             ]);
         } else {
-            return view('layouts.app', [
-                'logged_in' => false,
-            ]);
+            return view('layouts.app');
         }
     }
 }

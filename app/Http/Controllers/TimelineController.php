@@ -17,7 +17,7 @@ class TimelineController extends Controller
     {
         $posts = Post::with('user')
             ->withCount('comments')
-            ->latest('id')
+            ->latest('created_at')
             ->simplePaginate(15);
         // dd($posts);
         return view('dashboard', [
